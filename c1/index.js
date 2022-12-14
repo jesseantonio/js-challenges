@@ -1,8 +1,14 @@
 function drawCircle() {
-    let canvasElem = document.querySelector("canvas");
+    let canvasElem = document.querySelector(".canvas");
     canvasElem.addEventListener("click", (e) => {
         getMousePosition(canvasElem, e);
     });
+}
+
+function incrementInCounter() {
+    let counter = document.querySelector('.badge');
+    let num = parseInt(counter.textContent) + 1;
+    counter.textContent = num;
 }
 
 function getMousePosition(canvas, event) {
@@ -10,7 +16,7 @@ function getMousePosition(canvas, event) {
     let ball = document.createElement('div');
     styleCircle(ball, event, rect)
     
-    var count = document.getElementById("holder").childElementCount;
+    let count = document.getElementById("holder").childElementCount;
     console.log(count);
     
     document.getElementById("holder").appendChild(ball);
