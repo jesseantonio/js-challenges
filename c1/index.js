@@ -12,12 +12,10 @@ function incrementInCounter() {
 }
 
 function getMousePosition(canvas, event) {
+    incrementInCounter();
     let rect = canvas.getBoundingClientRect();
     let ball = document.createElement('div');
     styleCircle(ball, event, rect)
-    
-    let count = document.getElementById("holder").childElementCount;
-    console.log(count);
     
     document.getElementById("holder").appendChild(ball);
 }
