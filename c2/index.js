@@ -1,4 +1,5 @@
 let map;
+let shuffledMap;
 
 function createGame() {
     createMap()
@@ -35,22 +36,35 @@ function createMap() {
     return map;
 }
 
-function randomizeMap(arr) {
-    debugger
-    arr.sort(() => Math.random() - 0.5)
+function randomizeMap(map) {
+    let clonedMap = [...map]
+    let randomNumber;
+    let tmp;
+    let list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    for (let i = list.length; i;) {
+        randomNumber = Math.random() * i-- | 0;
+        tmp = list[randomNumber];
+        list[randomNumber] = list[i];
+        list[i] = tmp;
+    }
 
-    return arr;
+    for (let [index, value] of clonedMap.entries()) {
+        value[0] = list[index++]
+    }
+
+    shuffledMap = new Map(Object.entries(Object.fromEntries(clonedMap)));
 }
 
 function onSubmit() {
     let val1 = parseInt(document.getElementById("value1").value);
     let val2 = parseInt(document.getElementById("value2").value);
     randomizeMap(map)
-    if (map.get(val1) === map.get(val2)) { 
-        map.delete(val1)
-        map.delete(val2)
+    debugger
+    if (shuffledMap.get(val1) === map.get(val2)) {
+        shuffledMap.delete(val1)
+        shuffledMap.delete(val2)
     }
-    if (map.size === 0) {
+    if (shuffledMap.size === 0) {
         alert("Congrats!!!")
     }
 
