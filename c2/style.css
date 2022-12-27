@@ -1,5 +1,46 @@
 #general {
     height: 20vh;
     width: 20vw;
+}
+
+#holder {
+}
+
+ul {
+    display: grid;
+    grid-template-columns: repeat(4, 2fr);
+    height: 80vh;
+    width: 80vw;
+    list-style:none;
+}
+
+#card {
+    transform-style: preserve-3d;
+    transition: all .5s;
+}
+
+.face {
+    display: flex;
+    width: 100px;
+    height: 100px;
+    color: red;
     position: absolute;
+    border-radius: 10px;
+}
+
+#front {
+    background-image: url("https://t3.ftcdn.net/jpg/04/87/09/80/360_F_487098064_9yvhR0g6uZNbgfHpCarwnV5lYVy7aGEQ.jpg");
+    transform: rotateY(180deg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+#back {
+    background-color: yellow;
+    backface-visibility: hidden;
+}
+
+.flip {
+    transform: rotateY(180deg)
 }

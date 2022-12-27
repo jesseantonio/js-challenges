@@ -2,12 +2,42 @@ let map;
 let shuffledMap;
 
 function createGame() {
-    createMap()
-    for (i = 0; i < 10; i++) {
-        let card = document.createElement('div');
-        styleCard(card)
+    createMap();
+    shuffleMap(map);
+    let ul = document.createElement('ul');
+    document.getElementById('holder').appendChild(ul);
+    shuffledMap.forEach(renderCard);
+    function renderCard(element) {
+        let card = document.createElement('li');
+        card.setAttribute('class', 'flip');
+        card.setAttribute('id', 'card');
+        let front = document.createElement('div')
+        let back = document.createElement('div')
+        back.innerHTML = card.innerHTML + element;
+        back.setAttribute('class', 'face')
+        front.setAttribute('class', 'face')
+        front.setAttribute('id', 'front')
+        back.setAttribute('id', 'back')
+        //card.setAttribute('id', `${element}`);
+        ul.appendChild(card);
+        card.appendChild(front);
+        card.appendChild(back);
+        let val
+        let val2
+        card.onclick = function (item) {
+            console.log(item)
+            card.classList.toggle("flip");
+            let tempVal1;
+            let tempVal2;
+            ul.childNodes.forEach((item) => {
+                tempVal1 = item.childNodes[1].innerText;
+            });
+            debugger
+            val = tempVal1;
+            val2 = tempVal1;
+            console.log(val, val2)
+        };
 
-        document.getElementById("holder").appendChild(card);
     }
 }
 
@@ -16,7 +46,7 @@ function styleCard(card) {
     card.style.height = "30px"
     card.style.backgroundColor = "red"
     card.style.marginBottom = "10px"
-
+    card.style.backgroundImage = "url('https://minhasaude.proteste.org.br/wp-content/uploads/2022/07/bananas.jpg')"
     return card
 }
 
@@ -36,7 +66,7 @@ function createMap() {
     return map;
 }
 
-function randomizeMap(map) {
+function shuffleMap(map) {
     let clonedMap = [...map]
     let randomNumber;
     let tmp;
@@ -58,8 +88,7 @@ function randomizeMap(map) {
 function onSubmit() {
     let val1 = parseInt(document.getElementById("value1").value);
     let val2 = parseInt(document.getElementById("value2").value);
-    randomizeMap(map)
-    debugger
+    shuffleMap(map)
     if (shuffledMap.get(val1) === map.get(val2)) {
         shuffledMap.delete(val1)
         shuffledMap.delete(val2)
@@ -67,6 +96,6 @@ function onSubmit() {
     if (shuffledMap.size === 0) {
         alert("Congrats!!!")
     }
-
     return map;
 }
+
