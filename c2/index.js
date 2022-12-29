@@ -1,5 +1,8 @@
 let map;
 let shuffledMap;
+let chosenCards = [];
+let chosenDivs = [];
+
 
 function createGame() {
     createMap();
@@ -22,22 +25,28 @@ function createGame() {
         ul.appendChild(card);
         card.appendChild(front);
         card.appendChild(back);
-        let val
-        let val2
         card.onclick = function (item) {
             console.log(item)
             card.classList.toggle("flip");
-            let tempVal1;
-            let tempVal2;
-            ul.childNodes.forEach((item) => {
-                tempVal1 = item.childNodes[1].innerText;
-            });
+            let value = item.currentTarget.innerText;
+            if (chosenCards.length > 1) {
+                chosenCards = []
+                chosenDivs = []
+            }
+            chosenCards.push(value);
+            chosenDivs.push(item.target);
+            if (chosenCards[0] === chosenCards[1]) {
+                debugger
+                chosenDivs[0].remove();
+                chosenDivs[1].remove();
+            }
+            if (ul.childNodes.length === 0) {
+            alert("Parabéns você ganhou!")
+            }
+            console.log(ul)
             debugger
-            val = tempVal1;
-            val2 = tempVal1;
-            console.log(val, val2)
+            console.log(chosenCards)
         };
-
     }
 }
 
@@ -84,18 +93,3 @@ function shuffleMap(map) {
 
     shuffledMap = new Map(Object.entries(Object.fromEntries(clonedMap)));
 }
-
-function onSubmit() {
-    let val1 = parseInt(document.getElementById("value1").value);
-    let val2 = parseInt(document.getElementById("value2").value);
-    shuffleMap(map)
-    if (shuffledMap.get(val1) === map.get(val2)) {
-        shuffledMap.delete(val1)
-        shuffledMap.delete(val2)
-    }
-    if (shuffledMap.size === 0) {
-        alert("Congrats!!!")
-    }
-    return map;
-}
-
