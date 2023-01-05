@@ -1,7 +1,8 @@
 let map;
 let shuffledMap;
-let chosenCards = [];
+let chosenCardItems = [];
 let chosenDivs = [];
+let chosenCards = []
 
 
 function createGame() {
@@ -21,31 +22,44 @@ function createGame() {
         front.setAttribute('class', 'face')
         front.setAttribute('id', 'front')
         back.setAttribute('id', 'back')
-        //card.setAttribute('id', `${element}`);
         ul.appendChild(card);
         card.appendChild(front);
         card.appendChild(back);
         card.onclick = function (item) {
-            console.log(item)
+            card.setAttribute("disabled", true)
             card.classList.toggle("flip");
             let value = item.currentTarget.innerText;
-            if (chosenCards.length > 1) {
-                chosenCards = []
+            if (chosenCardItems.length > 1) {
+                chosenCardItems = []
                 chosenDivs = []
             }
-            chosenCards.push(value);
-            chosenDivs.push(item.target);
-            if (chosenCards[0] === chosenCards[1]) {
-                debugger
-                chosenDivs[0].remove();
-                chosenDivs[1].remove();
+            chosenCardItems.push(value);
+            chosenDivs.push(item.currentTarget.children[0]);
+            chosenDivs.push(item.currentTarget.children[1]);
+            chosenCards.push(item.currentTarget)
+            if (chosenCardItems[0] === chosenCardItems[1]) {
+                setTimeout(() => {
+                    chosenDivs.forEach(item => {
+                        item.remove()
+                    })
+                }, 1000)
+            } else if (chosenCards.length >= 2) {
+                if (item.classList != undefined) {
+                    setTimeout(() => {
+                        chosenCards.forEach(item => {
+                            item.classList.toggle("flip")
+                        })
+                        chosenCards = [];
+                    }, 1200)
+                } else {
+                    setTimeout(() => {
+                        chosenCards.forEach(item => {
+                            item.classList.toggle("flip")
+                        })
+                        chosenCards = [];
+                    }, 1200)
+                }
             }
-            if (ul.childNodes.length === 0) {
-            alert("Parabéns você ganhou!")
-            }
-            console.log(ul)
-            debugger
-            console.log(chosenCards)
         };
     }
 }
